@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/x-icon" href="logo2.PNG">
+  <title>Restoran Grafičar – Chat</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: url('/pozadina.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .bot p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    .user p {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header {
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 28px;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .logo-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      text-align: center;
+      padding: 10px 0;
+      margin-top: 35px;
+    }
+    .logo-container img {
+      max-width: 140px;
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.3));
+    }
+    
+    #chat {
+      flex-grow: 1;
+      width: 90%;
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 16px;
+      color: white;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow-y: auto;
+      max-height: 70vh;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+    }
+
+    #chat::-webkit-scrollbar {
+      display: none; /* Za Webkit-bazirane browsere (Chrome, Safari) */
+    }
+
+    .message {
+      margin: 12px 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 0;   
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px 16px;
+      border-radius: 16px 16px 16px 0;
+      max-width: 80%;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #0A4541;
+      padding: 12px 16px;
+      border-radius: 16px 16px 0 16px;
+      max-width: 80%;
+    }
+
+    .input-area {
+      max-width: 700px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      gap: 10px;
+      padding: 0 20px;
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    #sendBtn {
+      padding: 14px 20px;
+      font-size: 16px;
+      background-color: #0A4541;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #sendBtn:hover {
+      background-color: #0A4541;
+    }
+
+    #sendBtn svg {
+      display: block;
+      margin: auto;
+    }
+
+    @media (max-width: 640px) {
+      .input-area {
+        flex-direction: row;
+        padding: 0 15px;
+      }
+
+      #sendBtn {
+        width: 100%;
+      }
+    }
+
+  </style>
+
+
+</head>
+<body>
+<div class="overlay">
+  <div class="logo-container">
+    <img src="logo.png" alt="Logo Graficara" />
+  </div>
+  
+  <div id="chat">
+    <div class="message"><div class="bot">Dobrodošli u restoran Grafičar! Kako mogu da Vam pomognem?</div></div>
+  </div>
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Search..." />
+    <button id="sendBtn" onclick="sendMessage()" aria-label="Pošalji poruku">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send">
+        <line x1="22" x2="11" y1="2" y2="13" />
+        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+
+
+  function displayMessage(text, sender = "bot") {
+  const chat = document.getElementById("chat");
+  const msg = document.createElement("div");
+  msg.classList.add("message");
+
+  if (sender === "user") {
+    msg.innerHTML = `<div class="user">${text}</div>`;
+  } else {
+    msg.innerHTML = `<div class="bot">${text}</div>`; // text sadrži HTML, npr. <p>, <a>, itd.
+  }
+
+  chat.appendChild(msg);
+  scrollToBottom(chat);
+}
+
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chat = document.getElementById("chat");
+  const userText = input.value.trim();
+  if (!userText) return;
+
+  // ➕ Prikaz korisničke poruke
+  const userMsg = document.createElement("div");
+  userMsg.classList.add("message");
+  userMsg.innerHTML = `<div class="user">${userText}</div>`;
+  chat.appendChild(userMsg);
+  scrollToBottom(chat);
+  input.value = "";
+
+  // ⏳ Prikaz loadera
+  const loadingMsg = document.createElement("div");
+  loadingMsg.classList.add("message");
+  loadingMsg.innerHTML = `<div class="bot" id="loadingMsg"><div class="loader"></div></div>`;
+  chat.appendChild(loadingMsg);
+  scrollToBottom(chat);
+
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userMessage: userText })
+    });
+
+    const data = await res.json();
+
+    // 🧽 Ukloni loader
+    const loader = document.getElementById("loadingMsg");
+    if (loader) loader.parentElement.remove();
+
+    const reply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
+
+    // ✅ Prikaz bot poruke – HTML već stiže formatiran sa backenda
+    const botMsg = document.createElement("div");
+    botMsg.classList.add("message");
+    botMsg.innerHTML = `<div class="bot">${reply}</div>`;
+    chat.appendChild(botMsg);
+    scrollToBottom(chat);
+
+  } catch (error) {
+    console.error("Greška:", error);
+
+    const loader = document.getElementById("loadingMsg");
+    if (loader) loader.parentElement.remove();
+
+    const errorMsg = document.createElement("div");
+    errorMsg.classList.add("message");
+    errorMsg.innerHTML = `<div class="bot">Došlo je do greške: ${error?.message || "Pokušaj ponovo."}</div>`;
+    chat.appendChild(errorMsg);
+    scrollToBottom(chat);
+  }
+}
+
+
+
+function scrollToBottom(chat) {
+  chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
+}
+
+
+</script>
+
+</body>
+</html>
