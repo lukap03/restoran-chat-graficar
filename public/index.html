@@ -102,6 +102,12 @@
     }
 
     .input-area {
+      position: sticky;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* ili drugi kontrastan sloj */
+    padding: 10px 20px;
+    backdrop-filter: blur(6px);
+
       max-width: 700px;
       margin: 0 auto 20px auto;
       display: flex;
@@ -255,8 +261,7 @@ function scrollToBottom(chat) {
 }
 
 window.onload = function() {
-    const chatBox = document.getElementById("chat");
-    chatBox.scrollTop = chatBox.scrollHeight;
+    scrollToBottom(document.getElementById("chat"));
   };
 
 </script>
