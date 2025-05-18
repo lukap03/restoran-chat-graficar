@@ -71,6 +71,7 @@
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
       margin-top: 50px;
+      padding-bottom: 100px;
     }
 
     #chat::-webkit-scrollbar {
@@ -102,19 +103,21 @@
     }
 
     .input-area {
-      max-width: 700px;
-      margin: 0 auto 20px auto;
-      display: flex;
-      gap: 10px;
-      padding: 0 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+}
 
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      text-align: center;
-      padding: 10px 0;
-      margin-top: 35px;
-    }
 
     #userInput {
       flex: 1;
