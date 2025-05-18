@@ -131,6 +131,8 @@ app.post('/api/chat', async (req, res) => {
               Ako korisnik koristi neki strani jezik, ti se prilagodi i piši na tom jeziku.
               ${trainingData}.
               Kada te pita za meni, posalji prvo kategorije i pitaj sta ga konkretno zanima.
+              Pozdrav napiši samo na početku konverzacije.
+              Ako gost želi da naruči, reci mu da je jedina opcija za naručivanje pitem konobara u restoranu.
             `
           },
           {
