@@ -254,6 +254,10 @@ function scrollToBottom(chat) {
   chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
 }
 
+window.onload = function() {
+    const chatBox = document.getElementById("chat");
+    chatBox.scrollTop = chatBox.scrollHeight;
+  };
 
 </script>
 
