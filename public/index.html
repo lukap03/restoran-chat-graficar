@@ -121,11 +121,6 @@
     }
 
     #sendBtn {
-position: sticky;
-      bottom: 0;
-      z-index: 100;
-      
-
       padding: 14px 20px;
       font-size: 16px;
       background-color: #0A4541;
@@ -169,6 +164,7 @@ position: sticky;
   <div id="chat">
     <div class="message"><div class="bot">Dobrodošli u restoran Grafičar! Kako mogu da Vam pomognem?</div></div>
   </div>
+  <div id="bottom">
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Search..." />
     <button id="sendBtn" onclick="sendMessage()" aria-label="Pošalji poruku">
@@ -178,9 +174,11 @@ position: sticky;
       </svg>
     </button>
   </div>
+  </div>
 </div>
 
 <script>
+
 
 
   function displayMessage(text, sender = "bot") {
@@ -256,14 +254,11 @@ async function sendMessage() {
 }
 
 
+  function bottom() {
+    document.getElementById( 'bottom' ).scrollIntoView();
+};
 
-function scrollToBottom(chat) {
-  chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
-}
-
-window.onload = function() {
-    scrollToBottom(document.getElementById("chat"));
-  };
+bottom();
 
 </script>
 
