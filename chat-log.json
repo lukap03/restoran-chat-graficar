@@ -548,5 +548,20 @@
     "timestamp": "2025-05-20T22:25:19.212Z",
     "question": "¿Cual es la dirección del restaurante?",
     "answer": "<p>¡Hola! La dirección del restaurante Grafičar es Vase Pelagića 31 en Belgrado, Serbia. ¿En qué más puedo ayudarte?</p>"
+  },
+  {
+    "timestamp": "2025-05-20T22:52:25.016Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Поздрав, радно време ресторана је од понедељка до суботе од 08:00 до 00:00 часова, а недељом од 10:00 до 19:00 часова. Ваше друге питање?</p>"
+  },
+  {
+    "timestamp": "2025-05-20T23:34:24.322Z",
+    "question": "koja je adresa",
+    "answer": "<p>Pozdrav! Adresa restorana Grafičar je Vase Pelagića 31, na Senjaku u Beogradu. Kako mogu da vam pomognem? Da li vas nešto konkretno zanima u vezi sa našim jelovnikom?</p>"
+  },
+  {
+    "timestamp": "2025-05-20T23:34:39.073Z",
+    "question": "koje je radno vreme",
+    "answer": "<p>Pozdrav! Radno vreme restorana Grafičar je od ponedeljka do subote od 08:00 do 00:00h, dok je nedeljom radno vreme od 10:00 do 19:00h. Da li vas još nešto konkretno zanima u vezi sa jelovnikom ili uslugama restorana Grafičar?</p>"
   }
 ]
