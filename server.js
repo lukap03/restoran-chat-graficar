@@ -102,10 +102,10 @@ app.post('/api/chat', async (req, res) => {
         'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-turbo",
         messages: [{
           role: "user",
-          content: `Koji je ovo jezik? Vrati samo ISO kod (npr. 'en', 'sr', 'de'): "${userMessage}"`
+        content: `Detektuj jezik ovog teksta i odgovori isključivo dvoslovnim ISO 639-1 kodom bez dodatnih objašnjenja. Tekst: "${userMessage}"`
         }]
       })
     });
@@ -130,8 +130,8 @@ app.post('/api/chat', async (req, res) => {
               Odgovaraj na jeziku korisnika (jezik poruke: ${languageCode}).
               Ako korisnik koristi neki strani jezik, ti se prilagodi i piši na tom jeziku.
               ${trainingData}.
-              Kada te pita za meni, posalji prvo kategorije i pitaj sta ga konkretno zanima.
-              Pozdrav napiši samo na početku konverzacije.
+              Kada te pita za meni, posalji sve kategorije i pitaj sta ga konkretno zanima.
+              Reč pozdrav napiši samo na početku konverzacije.
               Ako gost želi da naruči, reci mu da je jedina opcija za naručivanje pitem konobara u restoranu.
             `
           },
