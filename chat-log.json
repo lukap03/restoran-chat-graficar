@@ -533,5 +533,10 @@
     "timestamp": "2025-05-16T21:20:58.378Z",
     "question": "daj mi meni",
     "answer": "<p>Sigurno! Evo kategorija sa našeg menija:</p><p>1. Doručak</p><p>2. Hladna predjela</p><p>3. Topla predjela</p><p>4. Obrok salate</p><p>5. Salate</p><p>6. Supe i čorbe</p><p>7. Jela sa roštilja</p><p>8. Dečiji meni</p><p>9. Glavna jela</p><p>10. Prilozi</p><p>11. Hleb</p><p>12. Kuver</p><p>13. Kolači ili dezerti</p><p>Da li vas nešto posebno interesuje iz našeg menija? Ako imate bilo kakva pitanja ili želite preporuku, slobodno pitajte!</p>"
+  },
+  {
+    "timestamp": "2025-05-20T16:25:49.520Z",
+    "question": "koje je radno vreme",
+    "answer": "<p>Radno vreme restorana Grafičar je od ponedeljka do subote od 08:00 do 00:00h, a nedeljom od 10:00 do 19:00h. Kako vam mogu pomoći danas?</p>"
   }
 ]

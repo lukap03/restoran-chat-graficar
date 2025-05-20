@@ -259,6 +259,9 @@ async function sendMessage() {
   }
 }
 
+  function scrollToBottom(chat) {
+  chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
+}
 
   function bottom() {
     document.getElementById( 'bottom' ).scrollIntoView();
