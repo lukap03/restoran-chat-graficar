@@ -95,23 +95,36 @@ app.post('/api/chat', async (req, res) => {
 
   try {
     // === Detekcija jezika ===
-    const detectLangRes = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-4-turbo",
-        messages: [{
-          role: "user",
-        content: `Detektuj jezik ovog teksta i odgovori isključivo dvoslovnim ISO 639-1 kodom bez dodatnih objašnjenja. Tekst: "${userMessage}"`
-        }]
-      })
-    });
+    function isRussianText(text) {
+  const russianChars = /[ЁёЫыЭэЪъЖжШшЩщЮюЯяЙй]/;
+  return russianChars.test(text);
+}
 
-    const detectData = await detectLangRes.json();
-    const languageCode = detectData?.choices?.[0]?.message?.content?.trim().toLowerCase() || "sr";
+let languageCode = "sr"; // podrazumevano
+
+if (isRussianText(userMessage)) {
+  languageCode = "ru";
+} else {
+  // Ako nije jasno, koristi OpenAI za preciznu detekciju
+  const detectLangRes = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-4-turbo",
+      messages: [{
+        role: "user",
+        content: `Detektuj jezik ovog teksta i odgovori isključivo dvoslovnim ISO 639-1 kodom bez dodatnih objašnjenja. Tekst: "${userMessage}"`
+      }]
+    })
+  });
+
+  const detectData = await detectLangRes.json();
+  languageCode = detectData?.choices?.[0]?.message?.content?.trim().toLowerCase() || "sr";
+}
+
 
     // === Generisanje odgovora ===
     const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
