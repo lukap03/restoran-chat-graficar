@@ -96,8 +96,25 @@ app.post('/api/chat', async (req, res) => {
   try {
     // === Detekcija jezika ===
     function isRussianText(text) {
-  const russianChars = /[ЁёЫыЭэЪъЖжШшЩщЮюЯяЙй]/;
-  return russianChars.test(text);
+  const russianChars = /[А-Яа-яЁёЫыЭэЪъЖжШшЩщЮюЯяЙй]/;
+  const commonRussianWords = [
+  "привет", "как", "дела", "спасибо", "пожалуйста", "здравствуйте", "до свидания", "добро пожаловать",
+  "меню", "стол", "столик", "резервация", "забронировать", "бронирование", "забронируйте", "заказ",
+  "официант", "десерт", "напитки", "еда", "блюдо", "суп", "салат", "горячее", "первое", "второе",
+  "чек", "счёт", "наличные", "карта", "оплата", "платёж", "вкусно", "очень вкусно", "ресторан",
+  "графичар", "место", "вино", "пиво", "безалкогольный", "алкоголь", "обслуживание", "персонал",
+  "мясо", "рыба", "овощи", "фрукты", "часы работы", "открыто", "закрыто", "когда открыто",
+  "работаете", "работаете ли", "можно", "нельзя", "где", "как пройти", "у вас есть", "я хотел бы",
+  "я хочу", "можно столик", "можно меню", "приносите", "принесите", "жду", "подождите", "чем помочь",
+  "что порекомендуете", "есть ли", "вас", "сколько стоит", "во сколько", "на двоих", "на троих",
+  "на сколько", "свободный", "дадж", "отправьте", "какой", "занято", "заранее", "на вечер", "на сегодня", "на завтра"
+];
+  const lowerText = text.toLowerCase();
+
+  return (
+    russianChars.test(text) &&
+    commonRussianWords.some(word => lowerText.includes(word))
+  );
 }
 
 let languageCode = "sr"; // podrazumevano
@@ -116,7 +133,7 @@ if (isRussianText(userMessage)) {
       model: "gpt-4-turbo",
       messages: [{
         role: "user",
-        content: `Detektuj jezik ovog teksta i odgovori isključivo dvoslovnim ISO 639-1 kodom bez dodatnih objašnjenja. Tekst: "${userMessage}"`
+        content: `Koji je ISO 639-1 kod jezika ovog teksta: "${userMessage}"? Odgovori samo sa tačno dvoslovnim kodom jezika, bez dodatnog teksta.`
       }]
     })
   });
