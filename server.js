@@ -143,9 +143,8 @@ if (isRussianText(userMessage)) {
               Odgovaraj na jeziku korisnika (jezik poruke: ${languageCode}).
               Ako korisnik koristi neki strani jezik, ti se prilagodi i piši na tom jeziku.
               ${trainingData}.
-              Kada te pita za meni, posalji sve kategorije i pitaj sta ga konkretno zanima.
-              Reč pozdrav napiši samo na početku konverzacije.
-              Ako gost želi da naruči, reci mu da je jedina opcija za naručivanje pitem konobara u restoranu.
+              Kada te pita za meni, posalji sve kategorije i pitaj koja ga kategorija zanima.
+              Ako gost želi da naruči, reci mu da je jedina opcija za naručivanje putem konobara u restoranu.
             `
           },
           {
@@ -164,6 +163,8 @@ if (isRussianText(userMessage)) {
     }
 
     let rawReply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
+
+    rawReply = rawReply.replace(/^pozdrav[!.]*\s*/i, '');
 
     if (isReservationQuestion(userMessage)) {
   rawReply += `\n\nZa više informacija i da izvršite rezervaciju, kliknite <a href="${rezervacijaLink}" target="_blank" rel="noopener noreferrer">ovde</a>.`;
