@@ -95,7 +95,7 @@ app.post('/api/chat', async (req, res) => {
 
   try {
     // === Detekcija jezika ===
-    function isRussianText(text) {
+    /*function isRussianText(text) {
   const russianChars = /[А-Яа-яЁёЫыЭэЪъЖжШшЩщЮюЯяЙй]/;
   const lowerText = text.toLowerCase();
 
@@ -139,7 +139,16 @@ if (isRussianText(userMessage)) {
 
   const detectData = await detectLangRes.json();
   languageCode = detectData?.choices?.[0]?.message?.content?.trim().toLowerCase() || "sr";
-}
+}*/
+
+const detectLangRes = await fetch("https://libretranslate.com/detect", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ q: userMessage })
+});
+const detectData = await detectLangRes.json();
+languageCode = detectData?.[0]?.language || "sr";
+
 
 
     // === Generisanje odgovora ===
