@@ -147,7 +147,7 @@ const detectLangRes = await fetch("https://libretranslate.com/detect", {
   body: JSON.stringify({ q: userMessage })
 });
 const detectData = await detectLangRes.json();
-languageCode = detectData?.[0]?.language || "sr";
+languageCode = detectData?.[0]?.language;
 
 
 
