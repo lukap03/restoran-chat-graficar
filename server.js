@@ -151,7 +151,10 @@ app.post('/api/chat', async (req, res) => {
 
               Ako korisnik želi da naruči, objasni mu da narudžbine prihvatamo isključivo uživo putem konobara u restoranu.
 
-              Budi jasan, prijateljski i profesionalan u svakoj situaciji.`
+              Budi jasan, prijateljski i profesionalan u svakoj situaciji.
+              
+              Ako korisnik pita za rezervaciju, odgovori mu da se rezervacije ostaavljaju na linku ili putem telefona, i posalji link i telefon.
+              `
           },
           {
             role: "user",
