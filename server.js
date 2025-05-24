@@ -153,7 +153,7 @@ app.post('/api/chat', async (req, res) => {
 
               Budi jasan, prijateljski i profesionalan u svakoj situaciji.
               
-              Rezervacije se ostavljaju putem telefona ili na linku ispod, a narudžbine su putem konobara isključivo.
+              Rezervacije se ostavljaju putem telefona ili na linku ispod (ne šalji link nikakav biće poslati kasnije u okviru funkcije iRQ), a narudžbine su putem konobara isključivo.
               `
           },
           {
