@@ -132,8 +132,8 @@
       cursor: pointer;
       transition: background-color 0.3s;
       display: flex;
-align-items: center;
-justify-content: center;
+      align-items: center;
+      justify-content: center;
     }
 
     #sendBtn:hover {
@@ -158,15 +158,12 @@ justify-content: center;
     }
 
   </style>
-
-
 </head>
 <body>
 <div class="overlay">
   <div class="logo-container">
     <img src="logo.png" alt="Logo Graficara" />
   </div>
-  
   <div id="chat">
     <div class="message"><div class="bot">Dobrodošli u restoran Grafičar! Kako mogu da Vam pomognem?</div></div>
   </div>
@@ -182,11 +179,7 @@ justify-content: center;
   </div>
   </div>
 </div>
-
 <script>
-
-
-
   function displayMessage(text, sender = "bot") {
   const chat = document.getElementById("chat");
   const msg = document.createElement("div");
@@ -200,76 +193,62 @@ justify-content: center;
 
   chat.appendChild(msg);
   scrollToBottom(chat);
-}
-
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chat = document.getElementById("chat");
-  const userText = input.value.trim();
-  if (!userText) return;
-
-  // ➕ Prikaz korisničke poruke
-  const userMsg = document.createElement("div");
-  userMsg.classList.add("message");
-  userMsg.innerHTML = `<div class="user">${userText}</div>`;
-  chat.appendChild(userMsg);
-  scrollToBottom(chat);
-  input.value = "";
-
-  // ⏳ Prikaz loadera
-  const loadingMsg = document.createElement("div");
-  loadingMsg.classList.add("message");
-  loadingMsg.innerHTML = `<div class="bot" id="loadingMsg"><div class="loader"></div></div>`;
-  chat.appendChild(loadingMsg);
-  scrollToBottom(chat);
-
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userMessage: userText })
-    });
-
-    const data = await res.json();
-
-    // 🧽 Ukloni loader
-    const loader = document.getElementById("loadingMsg");
-    if (loader) loader.parentElement.remove();
-
-    const reply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
-
-    // ✅ Prikaz bot poruke – HTML već stiže formatiran sa backenda
-    const botMsg = document.createElement("div");
-    botMsg.classList.add("message");
-    botMsg.innerHTML = `<div class="bot">${reply}</div>`;
-    chat.appendChild(botMsg);
-    scrollToBottom(chat);
-
-  } catch (error) {
-    console.error("Greška:", error);
-
-    const loader = document.getElementById("loadingMsg");
-    if (loader) loader.parentElement.remove();
-
-    const errorMsg = document.createElement("div");
-    errorMsg.classList.add("message");
-    errorMsg.innerHTML = `<div class="bot">Došlo je do greške: ${error?.message || "Pokušaj ponovo."}</div>`;
-    chat.appendChild(errorMsg);
-    scrollToBottom(chat);
   }
+
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chat");
+    const userText = input.value.trim();
+    if (!userText) return;
+
+    const userMsg = document.createElement("div");
+    userMsg.classList.add("message");
+    userMsg.innerHTML = `<div class="user">${userText}</div>`;
+    chat.appendChild(userMsg);
+    scrollToBottom(chat);
+    input.value = "";
+
+    const loadingMsg = document.createElement("div");
+    loadingMsg.classList.add("message");
+    loadingMsg.innerHTML = `<div class="bot" id="loadingMsg"><div class="loader"></div></div>`;
+    chat.appendChild(loadingMsg);
+    scrollToBottom(chat);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userMessage: userText })
+      });
+      const data = await res.json();
+      const loader = document.getElementById("loadingMsg");
+      if (loader) loader.parentElement.remove();
+      const reply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
+      const botMsg = document.createElement("div");
+      botMsg.classList.add("message");
+      botMsg.innerHTML = `<div class="bot">${reply}</div>`;
+      chat.appendChild(botMsg);
+      scrollToBottom(chat);
+
+    } catch (error) {
+      console.error("Greška:", error);
+      const loader = document.getElementById("loadingMsg");
+      if (loader) loader.parentElement.remove();
+      const errorMsg = document.createElement("div");
+      errorMsg.classList.add("message");
+      errorMsg.innerHTML = `<div class="bot">Došlo je do greške: ${error?.message || "Pokušaj ponovo."}</div>`;
+      chat.appendChild(errorMsg);
+      scrollToBottom(chat);
+    }
 }
 
   function scrollToBottom(chat) {
   chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
 }
-
   function bottom() {
     document.getElementById( 'bottom' ).scrollIntoView();
 };
-
 bottom();
-
 </script>
-
 </body>
 </html>
