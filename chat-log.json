@@ -563,5 +563,70 @@
     "timestamp": "2025-05-20T23:34:39.073Z",
     "question": "koje je radno vreme",
     "answer": "<p>Pozdrav! Radno vreme restorana Grafičar je od ponedeljka do subote od 08:00 do 00:00h, dok je nedeljom radno vreme od 10:00 do 19:00h. Da li vas još nešto konkretno zanima u vezi sa jelovnikom ili uslugama restorana Grafičar?</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:42:02.772Z",
+    "question": "Какой адрес ресторана?",
+    "answer": "<p>Restoran Grafičar se nalazi na adresi Vase Pelagića 31, na Senjaku u Beogradu. Kako vam mogu još pomoći?</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:45:55.876Z",
+    "question": "Какой адрес ресторана?",
+    "answer": "<p>Ресторан Графичар се налази на адреси Васе Пелагића 31 на Сењаку у Београду.</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:46:29.098Z",
+    "question": "Можете ли вы дать мне меню ресторана?",
+    "answer": "<p>Конечно! Ето меню нашег ресторана Графичар:</p><p>Категорије:</p><p>1. Доручак</p><p>2. Хладна предјела</p><p>3. Топла предјела</p><p>4. Оброк салате</p><p>5. Салате</p><p>6. Супе и чорбе</p><p>7. Јела са роштиља</p><p>8. Дечији мени</p><p>9. Главна јела</p><p>10. Прелози</p><p>11. Хлеб</p><p>12. Кувер</p><p>13. Колачи или дезерти</p><p>Молимо вас да наведете коју категорију вас занима. Како могу помоћи?</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:47:55.513Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Ресторан Графичар на Сењаку у Београду ради од понедељка до суботе од 08:00 до 00:00 часова, а недељом од 10:00 до 19:00 часова. Ako želite da vidite jelovnik, mogu vam poslati sve kategorije, pa možete videti šta sve imamo u ponudi. Koja kategorija vas interesuje?</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:51:25.235Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Ресторан Grafičar на Сењаку у Београду ради од понедељка до суботе од 08:00 до 00:00 часова, а недељом од 10:00 до 19:00 часова. Добро дошли! Ако вас занима наш мени, извозите категорије јела које вас интересују.</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:52:45.705Z",
+    "question": "¿Cual es la dirección del restaurante?",
+    "answer": "<p>La dirección del restaurante Grafičar es Vase Pelagića 31, en Senjak, Belgrado.</p>"
+  },
+  {
+    "timestamp": "2025-05-23T23:59:32.168Z",
+    "question": "Какой адрес ресторана?",
+    "answer": "<p>Ресторан Grafičar се налази на адреси Васе Пелагића 31 на Сењаку у Београду.</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:00:14.300Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Ресторан Grafičar на Сенјаку у Београду ради од понедељка до суботе од 08:00 до 00:00 часова, а у недељу од 10:00 до 19:00 часова. Какаја вас конкретно категорија интересује из нашег менија?</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:02:22.857Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Ресторан Grafičar ради од понедељка до суботе од 08:00 до 00:00 часова, недељом од 10:00 до 19:00 часова. Желите ли да видите меню? Која категорија вас интересује?</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:07:04.796Z",
+    "question": "Каковы часы работы ресторана?",
+    "answer": "<p>Ресторан Grafičar находится на Сенжаку в Белграде по адресу Васе Пелагича 31. Часы работы с понедельника по субботу с 08:00 до 00:00, в воскресенье с 10:00 до 19:00. Если у вас есть еще какие-либо вопросы, не стесняйтесь спрашивать!</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:09:02.969Z",
+    "question": "¿Cual es la dirección del restaurante?",
+    "answer": "<p>La dirección del restaurante Grafičar es Vase Pelagića 31, en Senjak, Belgrado. ¡Estoy a tu disposición para cualquier otra pregunta que tengas!</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:09:39.937Z",
+    "question": "daj mi meni restorana?",
+    "answer": "<p>Da, naravno! Evo svih kategorija sa jelovnika restorana Grafičar:</p><p>1. Doručak</p><p>2. Hladna predjela</p><p>3. Topla predjela</p><p>4. Obrok salate</p><p>5. Salate</p><p>6. Supe i čorbe</p><p>7. Jela sa roštilja</p><p>8. Dečiji meni</p><p>9. Glavna jela</p><p>10. Prilozi</p><p>11. Hleb</p><p>12. Kuver</p><p>13. Kolači ili dezerti</p><p>Molim vas da mi kažete koja kategorija vas zanima, kako bih vam tačno preneo informacije o jelovniku.</p><p>Za više informacija i da izvršite rezervaciju, kliknite <a href=\"https://w.eventlin.com/Restoran-Graficar?merchant=23853\" target=\"_blank\" rel=\"noopener noreferrer\">ovde</a>.</p>"
+  },
+  {
+    "timestamp": "2025-05-24T00:10:03.451Z",
+    "question": "glavna jela",
+    "answer": "<p>Sigurno! Evo šta imamo u kategoriji glavnih jela:</p><p>1. ĆUREĆI FILE NA PUTERU (Sa spanaćem, kukuruzom i taranom) cena: 1.850,00RSD</p><p>2. HRSKAVA SVINJSKA PLEĆKA (Na pireu od celera) cena: 1.710,00RSD</p><p>3. TELEĆI OBRAZI (U Merlot sosu sa pireom) cena: 2.650,00RSD</p><p>4. TELEĆI FILE WELLINGTON (Sa dižon pireom) cena: 3.570,00RSD</p><p>5. BIFTEK U AROMATIČNOM ULJU (Sa grilovanim povrćem) cena: 3.470,00RSD</p><p>6. JAGNJEĆA BUTKICA (Sa bulgurom,demiglasom i pistaćima) cena: 3.450,00RSD</p><p>7. TELETINA ISPOD SAČA (Sa šargarepom i domaćim krompirima) cena: 2.290,00RSD</p><p>8. FILE LOSOSA NA ŽARU (Na grilovanom povrću) cena: 2.350,00RSD</p><p>9. BRANCIN NA ŽARU (Sa salatom od komorača i rukole i začinima) cena: 2.450,00RSD</p><p>10. FILE SMUĐA (Sa spanaćem na prženoj palenti) cena: 2.100,00RSD</p><p>11. MEDITERANSKA HOBOTNICA (Na pireu od šargarepe i smeđem puteru od lešnika) cena: 3.480,00RSD</p><p>Ako vam je nešto još potrebno ili imate neko pitanje, slobodno pitajte!</p>"
   }
 ]

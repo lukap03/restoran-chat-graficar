@@ -71,6 +71,8 @@ function formatResponse(text) {
 
 // === API Chat ruta ===
 
+// ... (ostatak koda ostaje isti)
+
 app.post('/api/chat', async (req, res) => {
   const { userMessage } = req.body;
 
@@ -94,62 +96,54 @@ app.post('/api/chat', async (req, res) => {
   }
 
   try {
-    // === Detekcija jezika ===
-    /*function isRussianText(text) {
-  const russianChars = /[А-Яа-яЁёЫыЭэЪъЖжШшЩщЮюЯяЙй]/;
-  const lowerText = text.toLowerCase();
+    // Funkcija za proveru da li je tekst jasno na ruskom jeziku
+    function isClearlyRussian(text) {
+      const cyrillicPattern = /[а-яё]/i;
+      const russianWords = [
+        "меня", "интересуют", "салаты", "привет", "пожалуйста", "спасибо",
+        "блюдо", "вкусно", "заказ", "здравствуйте", "официант", "где", "жду",
+        "чек", "адрес", "ресторан", "столик", "меню", "вино", "пиво", "суп"
+      ];
 
-  const commonRussianWords = [
-    "привет", "как", "дела", "спасибо", "пожалуйста", "здравствуйте", "до свидания", "меню",
-    "стол", "столик", "резервация", "забронировать", "заказ", "официант", "десерт", "напитки", "еда",
-    "блюдо", "суп", "салат", "горячее", "вино", "пиво", "чек", "счёт", "оплата", "вкусно", "ресторан",
-    "работаете", "открыто", "закрыто", "можно", "где", "я хочу", "я хотел бы", "принесите", "жду"
-  ];
+      const hasCyrillic = cyrillicPattern.test(text);
+      const hasRussianWord = russianWords.some(word => text.toLowerCase().includes(word));
 
-  const hasRussianChar = russianChars.test(text);
-  const hasCommonWord = commonRussianWords.some(word => lowerText.includes(word));
+      return hasCyrillic && hasRussianWord;
+    }
 
-  // Ako ima mnogo ćiriličnih karaktera, verovatno je ruski
-  const russianCharCount = (text.match(russianChars) || []).length;
+    let languageCode = "sr"; // default
 
-  return hasRussianChar && (hasCommonWord || russianCharCount > 5);
-}
+    if (isClearlyRussian(trimmedMessage)) {
+      languageCode = "ru";
+    } else {
+      // Fallback: koristi OpenAI da odredi jezik
+      const detectLangRes = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: "gpt-4-turbo",
+          messages: [{
+            role: "user",
+            content: `
+Odredi ISO 639-1 dvoslovni kod jezika sledećeg teksta.
 
+Odgovori isključivo jednim dvoslovnim kodom bez dodatnih objašnjenja.
 
-let languageCode = "sr"; // podrazumevano
+VAŽNO:
+Ako tekst sadrži reči kao što su: "меня", "интересуют", "салаты", "привет", "пожалуйста", "спасибо", "блюдо", "вкусно", "заказ", "здравствуйте", "официант", "где", "жду", "чек", "адрес", smatraj da je to ruski jezik i **nikad nemoj vratiti 'sr'** u tim slučajevima.
 
-if (isRussianText(userMessage)) {
-  languageCode = "ru";
-} else {
-  // Ako nije jasno, koristi OpenAI za preciznu detekciju
-  const detectLangRes = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "gpt-4-turbo",
-      messages: [{
-        role: "user",
-        content: `Koji je ISO 639-1 kod jezika ovog teksta: "${userMessage}"? Odgovori samo sa tačno dvoslovnim kodom jezika, bez dodatnog teksta.`
-      }]
-    })
-  });
+Tekst: "${trimmedMessage}"
+            `.trim()
+          }]
+        })
+      });
 
-  const detectData = await detectLangRes.json();
-  languageCode = detectData?.choices?.[0]?.message?.content?.trim().toLowerCase() || "sr";
-}*/
-
-const detectLangRes = await fetch("https://libretranslate.com/detect", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ q: userMessage })
-});
-const detectData = await detectLangRes.json();
-languageCode = detectData?.[0]?.language;
-
-
+      const detectData = await detectLangRes.json();
+      languageCode = detectData?.choices?.[0]?.message?.content?.trim().toLowerCase() || "sr";
+    }
 
     // === Generisanje odgovora ===
     const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -164,13 +158,24 @@ languageCode = detectData?.[0]?.language;
           {
             role: "system",
             content: `
-              Ti si ljubazan, strpljiv i profesionalan konobar restorana Grafičar iz Beograda.
-              Odgovaraj na jeziku korisnika (jezik poruke: ${languageCode}).
-              Ako korisnik koristi neki strani jezik, ti se prilagodi i piši na tom jeziku.
-              ${trainingData}.
-              Kada te pita za meni, posalji sve kategorije i pitaj koja ga kategorija zanima.
-              Ako gost želi da naruči, reci mu da je jedina opcija za naručivanje putem konobara u restoranu.
-            `
+Ti si ljubazan, strpljiv i profesionalan konobar restorana Grafičar iz Beograda.
+
+Odgovaraj isključivo na jeziku korisnika. Jezik korisnika je: ${languageCode}
+
+VAŽNO:
+- Ako korisnik piše na stranom jeziku (npr. ruski), ceo odgovor mora biti isključivo na tom jeziku. Ne smeš mešati srpski sa stranim jezikom.
+- Odgovori uvek moraju biti kompletno na jednom jeziku — onom koji koristi korisnik.
+- Ako pišeš na ruskom jeziku, koristi formalni ton („вы“), piši prirodnim, tečnim ruskim jezikom kao izvorni govornik.
+
+Informacije o restoranu su sledeće:
+${trainingData}
+
+Ako korisnik pita za meni, prikaži sve kategorije i pitaj ga koja ga kategorija zanima.
+
+Ako korisnik želi da naruči, objasni mu da narudžbine prihvatamo isključivo uživo putem konobara u restoranu.
+
+Budi jasan, prijateljski i profesionalan u svakoj situaciji.
+`
           },
           {
             role: "user",
@@ -189,15 +194,13 @@ languageCode = detectData?.[0]?.language;
 
     let rawReply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
 
-    rawReply = rawReply.replace(/^pozdrav[!.]*\s*/i, '');
-
     if (isReservationQuestion(userMessage)) {
-  rawReply += `\n\nZa više informacija i da izvršite rezervaciju, kliknite <a href="${rezervacijaLink}" target="_blank" rel="noopener noreferrer">ovde</a>.`;
-}
-
+      rawReply += `\n\nZa više informacija i da izvršite rezervaciju, kliknite <a href="${rezervacijaLink}" target="_blank" rel="noopener noreferrer">ovde</a>.`;
+    }
 
     const reply = formatResponse(rawReply);
 
+    // Logovanje pitanja i odgovora
     const logEntry = {
       timestamp: new Date().toISOString(),
       question: userMessage,
@@ -226,6 +229,7 @@ languageCode = detectData?.[0]?.language;
     res.status(500).json({ error: "Došlo je do greške pri komunikaciji sa OpenAI-jem." });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`✅ Server radi na http://localhost:${PORT}`);
