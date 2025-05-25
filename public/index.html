@@ -154,7 +154,7 @@
   <div id="chat">
     <div class="message"><div class="bot">Dobrodošli u restoran Grafičar! Kako mogu da Vam pomognem?</div></div>
   </div>
-  <div id="bottom">
+  
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Ask anything..." />
     <button id="sendBtn" onclick="sendMessage()" aria-label="Pošalji poruku">
@@ -164,7 +164,7 @@
       </svg>
     </button>
   </div>
-  </div>
+  <div id="bottom" style="height: 1px;"></div>
 </div>
 <script>
   function displayMessage(text, sender = "bot") {
@@ -233,9 +233,14 @@
   chat.scrollTo({ top: chat.scrollHeight, behavior: "smooth" });
 }
   function bottom() {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  const el = document.getElementById('bottom');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
-bottom();
+
+// Kada se stranica učita — skroluj
+window.addEventListener("load", bottom);
 </script>
 </body>
 </html>
