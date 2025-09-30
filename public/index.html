@@ -14,8 +14,18 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: url('/pozadina.png') no-repeat center center fixed;
-      background-size: cover;
+      /*background: url('/pozadina.png') no-repeat center center fixed;
+      background-size: cover;*/
+    }
+
+    .bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1; /* da ostane iza teksta/chata */
     }
 
     .bot p {
@@ -147,6 +157,12 @@
   </style>
 </head>
 <body>
+
+  <video autoplay muted loop class="bg-video">
+    <source src="pozadina2.mp4" type="video/mp4">
+    Tvoj browser ne podržava HTML5 video.
+  </video>
+
 <div class="overlay">
   <div class="logo-container">
     <img src="logo.png" alt="Logo Graficara" />
