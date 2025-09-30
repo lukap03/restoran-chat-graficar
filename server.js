@@ -28,8 +28,33 @@ const limiter = rateLimit({
 app.use('/api/chat', limiter);
 function isReservationQuestion(userMessage) {
   const reservationKeywords = [
-    "rezervacija", "rezervisem", "rezervisati", "sto",
-    "rezervisati sto", "mogu li da rezervišem"
+    // SR/HR/BS
+  'rezerv', 'rezervacij', 'rezervis', 'sto ', 'stolik', 'sto za',
+  // EN
+  'reservation', 'reserve', 'booking', 'book a table', 'table for',
+  // DE
+  'reservierung', 'reservier', 'tisch reserv', 'tisch fur', 'tisch für',
+  // FR
+  'réserv', 'reserver', 'reservation', 'table pour',
+  // ES
+  'reserva', 'reservar', 'mesa para',
+  // IT
+  'prenotaz', 'prenotare', 'tavolo per',
+  // RU (ćirilica)
+  'бронь', 'забронировать', 'резервац', 'столик', 'стол ',
+  // TR (dodaj i ASCII varijantu)
+  'rezervasyon', 'masa ayırt', 'masa ayirt', 'masa rezerve',
+  // EL (grčki)
+  'κρατηση', 'κρατησω', 'τραπεζι', 'τραπέζι',
+  // ZH (kineski – pojednostavljeni i tradicionalni)
+  '预订',        // yùdìng (rezervacija)
+  '预定',        // yùdìng (varijanta)
+  '订位',        // dìngwèi (rezervacija sedišta/stola)
+  '订桌',        // dìngzhuō (rezervacija stola)
+  '訂位',        // traditional
+  '訂桌',        // traditional
+  '預訂',        // traditional
+  '預定'         // traditional
   ];
   const lowerCaseMessage = userMessage.toLowerCase();
   return reservationKeywords.some(keyword => lowerCaseMessage.includes(keyword));
@@ -170,7 +195,7 @@ app.post('/api/chat', async (req, res) => {
     }
     let rawReply = data?.choices?.[0]?.message?.content || "Bot nije odgovorio.";
     if (isReservationQuestion(userMessage)) {
-      rawReply += `\n\nZa više informacija i da izvršite rezervaciju, kliknite <a href="${rezervacijaLink}" target="_blank" rel="noopener noreferrer">ovde</a>.`;
+      rawReply += `\n\n<a href="${rezervacijaLink}" target="_blank" rel="noopener noreferrer">link</a>`;
     }
     const reply = formatResponse(rawReply);
     const logEntry = {
