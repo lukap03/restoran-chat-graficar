@@ -14,7 +14,7 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      /*background: url('/pozadina.png') no-repeat center center fixed;
+      /*background: url('pozadina.png') no-repeat center center fixed;
       background-size: cover;*/
     }
 
@@ -22,7 +22,7 @@
       position: fixed;
       right: 0;
       bottom: 0;
-      min-width: 100%;
+      min-width: 100%; /*ovo je za video*/
       min-height: 100%;
       object-fit: cover;
       z-index: -1; /* da ostane iza teksta/chata */
@@ -157,9 +157,9 @@
   </style>
 </head>
 <body>
-
+  
   <video autoplay loop muted playsinline class="bg-video">
-    <source src="pozadina6.mp4" type="video/mp4">
+    <source src="pozadina3.mp4" type="video/mp4"> <!--ovo je za video-->
     Tvoj browser ne podržava HTML5 video.
   </video>
 
